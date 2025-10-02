@@ -78,26 +78,6 @@ This project analyzes court case events using PySpark ML to identify patterns an
 
 ---
 
-## Guardrails & Pitfalls
-
-- **Multiple Comparisons:**  
-  Use support thresholds. Consider:
-
-  - Empirical Bayes smoothing
-  - Confidence intervals for lift
-  - Fisher’s Exact Test or log-likelihood ratio (G²)
-
-- **Simpson’s Paradox:**  
-  Conditioning on Judge × Charge reduces confounding.
-
-- **Data Leakage:**  
-  Only pre-disposition events are considered.
-
-- **Token Quality:**  
-  Normalize aggressively, merge synonyms, avoid noisy catch-all tokens.
-
----
-
 ## Output Table Structure
 
 Each row (token or bigram) per Judge × Charge group includes:
@@ -109,30 +89,6 @@ Each row (token or bigram) per Judge × Charge group includes:
 - `p_fav_given_pattern` (conditional)
 - `lift`
 - `rank` (1..K after filters)
-
----
-
-## Quick Rules of Thumb
-
-- **Strong Leads:**  
-  Rank 1–3, lift ≥ 1.25, cases_with_pattern ≥ 8–10
-- **Reliable Context:**  
-  Lift 1.05–1.20, cases_with_pattern ≥ 20
-- **Risk Indicators:**  
-  Lift < 1 (potential anti-playbooks)
-
----
-
-## Suggested Enhancements
-
-- **Smoothing:**  
-  Add Beta prior to conditional rates.
-- **Uncertainty:**  
-  Attach 95% confidence intervals for lift.
-- **Alternative Ranks:**  
-  Compute PMI for bigrams or log-likelihood (G²).
-- **Semantic Normalization:**  
-  Cluster near-duplicate tokens to reduce fragmentation.
 
 ---
 
